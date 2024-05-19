@@ -11,6 +11,10 @@
     <properties>
         <maven.compiler.source>20</maven.compiler.source>
         <maven.compiler.target>20</maven.compiler.target>
+        <maven.compiler.memoryInitial>512m</maven.compiler.memoryInitial>
+        <maven.compiler.memoryMaximum>1024m</maven.compiler.memoryMaximum>
+        <surefire.memoryInitial>512m</surefire.memoryInitial>
+        <surefire.memoryMaximum>1024m</surefire.memoryMaximum>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -77,12 +81,9 @@
 
     </dependencies>
 
-
-
-
-
     <build>
         <plugins>
+
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>3.6.0</version>
@@ -107,7 +108,6 @@
                 </executions>
             </plugin>
 
-
             <plugin>
                 <groupId>net.alchim31.maven</groupId>
                 <artifactId>scala-maven-plugin</artifactId>
@@ -121,6 +121,32 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <!-- Plugin Surefire -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M5</version>
+                <configuration>
+                    <argLine>-Xms${surefire.memoryInitial} -Xmx${surefire.memoryMaximum}</argLine>
+                </configuration>
+            </plugin>
+
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <mainClass>sparkproject.demo</mainClass>
+                    <arguments>
+                        <argument>-Xms${surefire.memoryInitial}</argument>
+                        <argument>-Xmx${surefire.memoryMaximum}</argument>
+                    </arguments>
+                </configuration>
+            </plugin>
+
+
         </plugins>
     </build>
 
