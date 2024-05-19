@@ -7,7 +7,6 @@
     <groupId>sparkproject</groupId>
     <artifactId>spark</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>war</packaging>
 
     <properties>
         <maven.compiler.source>20</maven.compiler.source>
